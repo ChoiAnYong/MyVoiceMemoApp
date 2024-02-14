@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ADA8F1522B7D055A00DE45EB /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ADA8F1512B7D055A00DE45EB /* Storyboard.storyboard */; };
 		ADE8A78D2B7C9DC0002B950B /* MyVoiceMemoAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE8A78C2B7C9DC0002B950B /* MyVoiceMemoAppApp.swift */; };
 		ADE8A7912B7C9DC1002B950B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADE8A7902B7C9DC1002B950B /* Assets.xcassets */; };
 		ADE8A7942B7C9DC1002B950B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADE8A7932B7C9DC1002B950B /* Preview Assets.xcassets */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		ADA8F1512B7D055A00DE45EB /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		ADE8A7892B7C9DC0002B950B /* MyVoiceMemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyVoiceMemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADE8A78C2B7C9DC0002B950B /* MyVoiceMemoAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVoiceMemoAppApp.swift; sourceTree = "<group>"; };
 		ADE8A7902B7C9DC1002B950B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -55,9 +57,9 @@
 		ADE8A78B2B7C9DC0002B950B /* MyVoiceMemoApp */ = {
 			isa = PBXGroup;
 			children = (
+				ADE8A79A2B7C9E8A002B950B /* App */,
 				ADE8A79C2B7C9EAA002B950B /* Feature */,
 				ADE8A79B2B7C9E9E002B950B /* Model */,
-				ADE8A79A2B7C9E8A002B950B /* App */,
 				ADE8A7902B7C9DC1002B950B /* Assets.xcassets */,
 				ADE8A7922B7C9DC1002B950B /* Preview Content */,
 			);
@@ -76,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				ADE8A78C2B7C9DC0002B950B /* MyVoiceMemoAppApp.swift */,
+				ADA8F1512B7D055A00DE45EB /* Storyboard.storyboard */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -173,6 +176,7 @@
 			files = (
 				ADE8A7942B7C9DC1002B950B /* Preview Assets.xcassets in Resources */,
 				ADE8A7912B7C9DC1002B950B /* Assets.xcassets in Resources */,
+				ADA8F1522B7D055A00DE45EB /* Storyboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,7 +328,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = Storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -352,7 +356,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = Storyboard;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
