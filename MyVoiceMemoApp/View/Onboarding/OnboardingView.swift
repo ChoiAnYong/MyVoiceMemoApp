@@ -8,9 +8,25 @@
 import SwiftUI
 
 struct OnboardingView: View {
+    @StateObject private var pathModel = PathModel()
     @StateObject private var onboardingViewModel = OnboardingViewModel()
     var body: some View {
-        OnboardingContentView(onboardingViewModel: onboardingViewModel)
+        NavigationStack(path: $pathModel.paths) {
+            OnboardingContentView(onboardingViewModel: onboardingViewModel)
+                .navigationDestination(for: PathType.self) { pathType in
+                    switch pathType {
+                    case .homeView:
+                        HomeView()
+
+                    case .todoView:
+                        TodoView()
+                        
+                    case .memoView:
+                        MemoView()
+                    }
+                }
+        }
+        .environmentObject(pathModel)
     }
 }
 
@@ -116,9 +132,11 @@ private struct OnboardingCellView: View {
 
 // MARK: - 온보딩 버튼 뷰
 private struct OnboardingButtonView: View {
+    @EnvironmentObject private var pathModel: PathModel
+    
     var body: some View {
         Button(action: {
-            
+            pathModel.paths.append(.homeView)
         }, label: {
             HStack {
                 Text("시작하기")

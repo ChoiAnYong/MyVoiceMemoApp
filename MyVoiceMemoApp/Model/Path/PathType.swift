@@ -7,10 +7,8 @@
 
 import Foundation
 
-enum PathType {
-    case home
-    case todo
-    case memo
-    case voice
-    case timer
+enum PathType: Hashable {
+    case homeView
+    case todoView
+    case memoView
 }

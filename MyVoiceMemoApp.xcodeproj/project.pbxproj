@@ -28,6 +28,8 @@
 		ADA8F1852B7E3DD900DE45EB /* TodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA8F1842B7E3DD900DE45EB /* TodoViewModel.swift */; };
 		ADA8F1872B7E3DE100DE45EB /* TodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA8F1862B7E3DE100DE45EB /* TodoView.swift */; };
 		ADA8F18A2B7E450E00DE45EB /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA8F1892B7E450E00DE45EB /* Date+Extension.swift */; };
+		ADA8F18E2B7F23EA00DE45EB /* NavigationBarType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA8F18D2B7F23EA00DE45EB /* NavigationBarType.swift */; };
+		ADA8F1902B7F240900DE45EB /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA8F18F2B7F240900DE45EB /* CustomNavigationBar.swift */; };
 		ADE8A78D2B7C9DC0002B950B /* MyVoiceMemoAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE8A78C2B7C9DC0002B950B /* MyVoiceMemoAppApp.swift */; };
 		ADE8A7912B7C9DC1002B950B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADE8A7902B7C9DC1002B950B /* Assets.xcassets */; };
 		ADE8A7942B7C9DC1002B950B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADE8A7932B7C9DC1002B950B /* Preview Assets.xcassets */; };
@@ -58,6 +60,8 @@
 		ADA8F1842B7E3DD900DE45EB /* TodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewModel.swift; sourceTree = "<group>"; };
 		ADA8F1862B7E3DE100DE45EB /* TodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoView.swift; sourceTree = "<group>"; };
 		ADA8F1892B7E450E00DE45EB /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		ADA8F18D2B7F23EA00DE45EB /* NavigationBarType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarType.swift; sourceTree = "<group>"; };
+		ADA8F18F2B7F240900DE45EB /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		ADE8A7892B7C9DC0002B950B /* MyVoiceMemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyVoiceMemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADE8A78C2B7C9DC0002B950B /* MyVoiceMemoAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyVoiceMemoAppApp.swift; sourceTree = "<group>"; };
 		ADE8A7902B7C9DC1002B950B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -182,6 +186,23 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		ADA8F18B2B7F23AF00DE45EB /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				ADA8F18C2B7F23BA00DE45EB /* NavigationBar */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
+		ADA8F18C2B7F23BA00DE45EB /* NavigationBar */ = {
+			isa = PBXGroup;
+			children = (
+				ADA8F18F2B7F240900DE45EB /* CustomNavigationBar.swift */,
+				ADA8F18D2B7F23EA00DE45EB /* NavigationBarType.swift */,
+			);
+			path = NavigationBar;
+			sourceTree = "<group>";
+		};
 		ADE8A7802B7C9DC0002B950B = {
 			isa = PBXGroup;
 			children = (
@@ -201,6 +222,7 @@
 		ADE8A78B2B7C9DC0002B950B /* MyVoiceMemoApp */ = {
 			isa = PBXGroup;
 			children = (
+				ADA8F18B2B7F23AF00DE45EB /* Component */,
 				ADA8F1882B7E44E200DE45EB /* Extension */,
 				ADE8A79A2B7C9E8A002B950B /* App */,
 				ADE8A79C2B7C9EAA002B950B /* View */,
@@ -340,6 +362,7 @@
 				ADA8F15A2B7DF99300DE45EB /* HomeViewModel.swift in Sources */,
 				ADA8F1572B7DF3A600DE45EB /* PathType.swift in Sources */,
 				ADA8F16E2B7E3AE400DE45EB /* MemoView.swift in Sources */,
+				ADA8F18E2B7F23EA00DE45EB /* NavigationBarType.swift in Sources */,
 				ADA8F18A2B7E450E00DE45EB /* Date+Extension.swift in Sources */,
 				ADA8F1822B7E3D4500DE45EB /* MemoListViewModel.swift in Sources */,
 				ADA8F1732B7E3B1800DE45EB /* VoiceView.swift in Sources */,
@@ -352,6 +375,7 @@
 				ADA8F17B2B7E3B6500DE45EB /* TimerViewModel.swift in Sources */,
 				ADA8F15C2B7DF99A00DE45EB /* HomeView.swift in Sources */,
 				ADA8F1712B7E3AFF00DE45EB /* VoiceViewModel.swift in Sources */,
+				ADA8F1902B7F240900DE45EB /* CustomNavigationBar.swift in Sources */,
 				ADA8F1772B7E3B4D00DE45EB /* SettingViewModel.swift in Sources */,
 				ADA8F15F2B7DFA5500DE45EB /* Tab.swift in Sources */,
 				ADE8A7A42B7C9FD3002B950B /* OnboardingContent.swift in Sources */,

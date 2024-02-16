@@ -8,18 +8,34 @@
 import SwiftUI
 
 struct TodoView: View {
+    @EnvironmentObject private var pathModel: PathModel
     @StateObject private var todoViewModel: TodoViewModel = TodoViewModel()
     
     var body: some View {
         VStack {
+            CustomNavigationBar(
+                leftBtnAction: {
+                    pathModel.paths.removeLast()
+                },
+                rightBtnAction: {
+                    
+                },
+                rightBtnType: .create
+            )
+            
             TitleView()
+                .padding(.bottom, 20)
             
             TodoTitleView(todoViewModel: todoViewModel)
-                .padding(.leading, 20)
+                .padding(.leading, 30)
             
             SelectTimeView(todoViewModel: todoViewModel)
+                .padding(.bottom, 20)
             
             SelectDayView(todoViewModel: todoViewModel)
+                .padding(.leading, 30)
+            
+            Spacer()
         }
     }
 }
@@ -33,7 +49,7 @@ private struct TitleView: View {
             
             Spacer()
         }
-        .padding(.leading, 20)
+        .padding(.leading, 30)
     }
 }
 
@@ -90,10 +106,40 @@ private struct SelectDayView: View {
     }
     
     fileprivate var body: some View {
-        VStack {
-            Text("날짜")
-                .font(.system(size: 16, weight: .medium))
+        VStack(spacing: 10) {
+            HStack {
+                Text("날짜")
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundColor(.customIconGray)
+                Spacer()
+            }
+                        
+            HStack {
+                Button(action: {
+                    todoViewModel.isDisplayCalender.toggle()
+                }, label: {
+                    Text("\(todoViewModel.day.formattedDay)")
+                        .font(.system(size: 18, weight: .bold))
+                        .foregroundColor(.customGreen)
+                })
+             
+                .popover(isPresented: $todoViewModel.isDisplayCalender) {
+                    DatePicker(
+                        "",
+                        selection: $todoViewModel.day,
+                        displayedComponents: .date
+                    )
+                    .labelsHidden()
+                    .datePickerStyle(GraphicalDatePickerStyle())
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding()
+                    .onChange(of: todoViewModel.day) { _ in
+                        todoViewModel.setIsDisplayCalender(false)
+                    }
+                }
                 
+                Spacer()
+            }
         }
     }
 }
