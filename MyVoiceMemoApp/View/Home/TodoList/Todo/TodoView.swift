@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TodoView: View {
     @EnvironmentObject private var pathModel: PathModel
+    @EnvironmentObject private var todoListViewModel: TodoListViewModel
     @StateObject private var todoViewModel: TodoViewModel = TodoViewModel()
     
     var body: some View {
@@ -18,12 +19,19 @@ struct TodoView: View {
                     pathModel.paths.removeLast()
                 },
                 rightBtnAction: {
-                    
+                    todoListViewModel.addTodo(
+                        .init(
+                            title: todoViewModel.title,
+                            day: todoViewModel.day,
+                            time: todoViewModel.time,
+                            seleted: false)
+                    )
                 },
                 rightBtnType: .create
             )
             
             TitleView()
+                .padding(.top, 29)
                 .padding(.bottom, 20)
             
             TodoTitleView(todoViewModel: todoViewModel)
@@ -146,4 +154,6 @@ private struct SelectDayView: View {
 
 #Preview {
     TodoView()
+        .environmentObject(PathModel())
+        .environmentObject(TodoListViewModel())
 }

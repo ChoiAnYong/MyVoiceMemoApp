@@ -43,6 +43,7 @@ struct HomeView: View {
                 }
                 .tag(Tab.setting)
         }
+        .environmentObject(homeViewModel)
         
     }
 }
@@ -50,4 +51,5 @@ struct HomeView: View {
 #Preview {
     HomeView()
         .environmentObject(PathModel())
+        .environmentObject(TodoListViewModel())
 }
