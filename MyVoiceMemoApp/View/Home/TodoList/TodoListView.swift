@@ -25,8 +25,7 @@ struct TodoListView: View {
             if todoListViewModel.todos.isEmpty {
                 BeginningView()
             } else {
-                TodoCellView(todo: todoListViewModel.todos.first!)
-                    .padding(.horizontal, 30)
+                TodoCellListView()
             }
             
             
@@ -81,36 +80,90 @@ fileprivate struct BeginningView: View {
 
 
 // MARK: - todo cell list 뷰
+fileprivate struct TodoCellListView: View {
+    @EnvironmentObject var todoListViewModel: TodoListViewModel
+    
+    var body: some View {
+        VStack {
+            HStack {
+                Text("할일 목록")
+                    .font(.system(size: 16, weight: .bold))
+                    .foregroundColor(.customBlack)
+                Spacer()
+            }
+            .padding(.horizontal, 30)
+            .padding(.top, 23)
+        }
+        
+        ScrollView(.vertical) {
+            VStack {
+                Rectangle()
+                    .fill(Color.customGray0)
+                    .frame(height: 1)
+                
+                ForEach(todoListViewModel.todos, id: \.self) { todo in
+                    TodoCellView(todo: todo)
+                }
+            }
+        }
+    }
+}
 
 // MARK: - todo cell 뷰
 fileprivate struct TodoCellView: View {
     @EnvironmentObject var todoListViewModel: TodoListViewModel
+    @State private var isRemoveSeleted: Bool
     private var todo: Todo
     
-    fileprivate init(todo: Todo) {
+    fileprivate init(
+        todo: Todo,
+        isRemoveSeleted: Bool = false
+    ) {
+        self.todo = todo
+        _isRemoveSeleted = State(initialValue: isRemoveSeleted)
         self.todo = todo
     }
     
     var body: some View {
-        HStack {
-            VStack(alignment:.leading, spacing: 4) {
-                HStack {
-                    Text(todo.title)
-                        .font(.system(size: 16, weight: .regular))
-                        .foregroundColor(.customBlack)
-                }
-                Text(todo.convertedDayAndTime)
-                    .font(.system(size: 12, weight: .regular))
-                    .foregroundColor(.customIconGray)
-            }
-            
-            Spacer()
-            
-            Button(action: {
+        VStack {
+            HStack {
                 
-            }, label: {
-                Image(todo.seleted ? "unSelectedBox" : "selectedBox")
-            })
+                if !todoListViewModel.isEditMode {
+                    Button(action: {
+                        todoListViewModel.seletedBoxTapped(todo)
+                    }, label: {
+                        Image(todo.seleted ? "selectedBox" : "unSelectedBox")
+                    })
+                }
+                
+                VStack(alignment:.leading, spacing: 4) {
+                    HStack {
+                        Text(todo.title)
+                            .font(.system(size: 16, weight: .regular))
+                            .foregroundColor(todo.seleted ? .customIconGray : .customBlack)
+                            .strikethrough(todo.seleted)
+                    }
+                    Text(todo.convertedDayAndTime)
+                        .font(.system(size: 12, weight: .regular))
+                        .foregroundColor(.customIconGray)
+                }
+                
+                if todoListViewModel.isEditMode {
+                    Button(action: {
+                        isRemoveSeleted.toggle()
+                        
+                    }, label: {
+                        Image(todo.seleted ? "selectedBox" : "unSelectedBox")
+                    })
+                }
+                
+                Spacer()
+            }
+            .padding(.horizontal, 30)
+            
+            Rectangle()
+                .fill(Color.customGray0)
+                .frame(height: 1)
         }
     }
 }
@@ -131,5 +184,5 @@ fileprivate struct WriteBtnView: View {
 #Preview {
     TodoListView()
         .environmentObject(PathModel())
-        .environmentObject(TodoListViewModel(todos: [.init(title: "미팅잡기", day: Date(), time: Date(), seleted: true)]))
+        .environmentObject(TodoListViewModel(todos: [.init(title: "미팅잡기", day: Date(), time: Date(), seleted: false)]))
 }
