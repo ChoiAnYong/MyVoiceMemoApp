@@ -13,28 +13,42 @@ struct TodoListView: View {
     @EnvironmentObject private var homeViewModel: HomeViewModel
     
     var body: some View {
-        VStack {
-            
-            
-            CustomNavigationBar()
-            
-            TitleView()
-                .padding(.horizontal, 30)
-                .padding(.top, 29)
-            
-            if todoListViewModel.todos.isEmpty {
-                BeginningView()
-            } else {
-                TodoCellListView()
+        WriteBtnView(
+            content: {
+                VStack {
+                    if !todoListViewModel.todos.isEmpty {
+                        CustomNavigationBar(
+                            isDisplayLeftBtn: false,
+                            rightBtnAction: {
+                                todoListViewModel.navigationRightBtnTapped()
+                            },
+                            rightBtnType: todoListViewModel.navigationBtnType
+                        )
+                    } else {
+                        Spacer()
+                            .frame(height: 30)
+                    }
+                    
+                    TitleView()
+                    
+                    if todoListViewModel.todos.isEmpty {
+                        BeginningView()
+                        
+                    } else {
+                        TodoCellListView()
+                    }
+                }
+            }, action: { pathModel.paths.append(.todoView) }
+        )
+        .alert(
+            "To do list \(todoListViewModel.removeToodCount)개 삭제하시겠습니까?",
+            isPresented: $todoListViewModel.isDisplayRemoveTodoAlert
+        ) {
+            Button("삭제", role: .destructive) {
+                todoListViewModel.removeBtnTapped()
             }
             
-            
-            
-            Spacer()
-            
-                        
-            WriteBtnView()
-                
+            Button("취소", role: .cancel) { }
         }
     }
 }
@@ -56,6 +70,8 @@ fileprivate struct TitleView: View {
             }
             Spacer()
         }
+        .padding(.leading, 30)
+        .padding(.top, 30)
     }
 }
 
@@ -148,16 +164,17 @@ fileprivate struct TodoCellView: View {
                         .foregroundColor(.customIconGray)
                 }
                 
+                Spacer()
+                
                 if todoListViewModel.isEditMode {
                     Button(action: {
                         isRemoveSeleted.toggle()
-                        
+                        todoListViewModel.todoRemoveSelectedBoxTapped(todo)
                     }, label: {
-                        Image(todo.seleted ? "selectedBox" : "unSelectedBox")
+                        Image(isRemoveSeleted ? "selectedBox" : "unSelectedBox")
                     })
-                }
-                
-                Spacer()
+                    .padding(.trailing, 10)
+                }                
             }
             .padding(.horizontal, 30)
             
@@ -169,17 +186,17 @@ fileprivate struct TodoCellView: View {
 }
 
 // MARK: - 쓰기 버튼 뷰
-fileprivate struct WriteBtnView: View {
-    @EnvironmentObject private var pathModel: PathModel
-    
-    var body: some View {
-        Button(action: {
-            pathModel.paths.append(.todoView)
-        }, label: {
-            Image("writeBtn")
-        })
-    }
-}
+//fileprivate struct WriteBtnView: View {
+//    @EnvironmentObject private var pathModel: PathModel
+//    
+//    var body: some View {
+//        Button(action: {
+//            pathModel.paths.append(.todoView)
+//        }, label: {
+//            Image("writeBtn")
+//        })
+//    }
+//}
 
 #Preview {
     TodoListView()

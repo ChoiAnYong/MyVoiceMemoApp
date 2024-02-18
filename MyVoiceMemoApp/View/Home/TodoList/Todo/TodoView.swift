@@ -26,6 +26,7 @@ struct TodoView: View {
                             time: todoViewModel.time,
                             seleted: false)
                     )
+                    pathModel.paths.removeLast()
                 },
                 rightBtnType: .create
             )

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AD421BF52B7F321F00A2C000 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD421BF42B7F321F00A2C000 /* Todo.swift */; };
+		AD952D4A2B81D6B20059552A /* WriteBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD952D492B81D6B20059552A /* WriteBtn.swift */; };
 		ADA8F1522B7D055A00DE45EB /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ADA8F1512B7D055A00DE45EB /* Storyboard.storyboard */; };
 		ADA8F1552B7DF38000DE45EB /* PathModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA8F1542B7DF38000DE45EB /* PathModel.swift */; };
 		ADA8F1572B7DF3A600DE45EB /* PathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA8F1562B7DF3A600DE45EB /* PathType.swift */; };
@@ -41,6 +42,7 @@
 
 /* Begin PBXFileReference section */
 		AD421BF42B7F321F00A2C000 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
+		AD952D492B81D6B20059552A /* WriteBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteBtn.swift; sourceTree = "<group>"; };
 		ADA8F1512B7D055A00DE45EB /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		ADA8F1542B7DF38000DE45EB /* PathModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathModel.swift; sourceTree = "<group>"; };
 		ADA8F1562B7DF3A600DE45EB /* PathType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathType.swift; sourceTree = "<group>"; };
@@ -90,6 +92,14 @@
 				AD421BF42B7F321F00A2C000 /* Todo.swift */,
 			);
 			path = Todo;
+			sourceTree = "<group>";
+		};
+		AD952D482B81D6700059552A /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				AD952D492B81D6B20059552A /* WriteBtn.swift */,
+			);
+			path = CustomView;
 			sourceTree = "<group>";
 		};
 		ADA8F1532B7DF34A00DE45EB /* Path */ = {
@@ -199,6 +209,7 @@
 		ADA8F18B2B7F23AF00DE45EB /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				AD952D482B81D6700059552A /* CustomView */,
 				ADA8F18C2B7F23BA00DE45EB /* NavigationBar */,
 			);
 			path = Component;
@@ -392,6 +403,7 @@
 				ADE8A7A42B7C9FD3002B950B /* OnboardingContent.swift in Sources */,
 				AD421BF52B7F321F00A2C000 /* Todo.swift in Sources */,
 				ADA8F16C2B7E3AB400DE45EB /* MemoViewModel.swift in Sources */,
+				AD952D4A2B81D6B20059552A /* WriteBtn.swift in Sources */,
 				ADA8F1802B7E3D3600DE45EB /* MemoListView.swift in Sources */,
 				ADA8F1852B7E3DD900DE45EB /* TodoViewModel.swift in Sources */,
 				ADE8A79F2B7C9EF2002B950B /* OnboardingViewModel.swift in Sources */,
