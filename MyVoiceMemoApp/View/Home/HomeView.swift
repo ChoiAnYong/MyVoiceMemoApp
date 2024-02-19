@@ -19,7 +19,7 @@ struct HomeView: View {
                 }
                 .tag(Tab.todoList)
             
-            MemoView()
+            MemoListView()
                 .tabItem {
                     Image(homeViewModel.selectedTab == .memo ? "memoIcon_selected" : "memoIcon")
                 }

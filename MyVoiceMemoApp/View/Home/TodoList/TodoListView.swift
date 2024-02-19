@@ -201,5 +201,5 @@ fileprivate struct TodoCellView: View {
 #Preview {
     TodoListView()
         .environmentObject(PathModel())
-        .environmentObject(TodoListViewModel(todos: [.init(title: "미팅잡기", day: Date(), time: Date(), seleted: false)]))
+        .environmentObject(TodoListViewModel())
 }

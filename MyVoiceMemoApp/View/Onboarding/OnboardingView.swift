@@ -27,7 +27,8 @@ struct OnboardingView: View {
                             .navigationBarBackButtonHidden()
                         
                     case .memoView:
-                        MemoView()
+                        Text("dsklf")
+                      //  MemoView()
                     }
                 }
         }
