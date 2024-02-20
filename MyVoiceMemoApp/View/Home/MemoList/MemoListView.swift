@@ -78,16 +78,19 @@ private struct MemoCellListView: View {
                 
                 Spacer()
             }
-            if memoListViewModel.memos.isEmpty {
-                BeginningView()
-            } else {
-                ScrollView {
-                    ForEach(memoListViewModel.memos, id: \.self) { memo in
-                        MemoCellView(memo: memo)
-                    }
-                }
+            .padding(.top, 23)
+            .padding(.horizontal, 30)
+            
+            ScrollView(.vertical) {
+                Rectangle()
+                    .fill(Color.customGray0)
+                    .frame(height: 1)
                 
+                ForEach(memoListViewModel.memos, id: \.self) { memo in
+                    MemoCellView(memo: memo)
+                }
             }
+            
         }
     }
 }
@@ -135,12 +138,12 @@ private struct MemoCellView: View {
                         })
                     }
                 }
+                .padding(.horizontal, 30)
         
                 Rectangle()
                     .fill(Color.customGray0)
                     .frame(height: 1)
             }
-            .padding(.horizontal, 30)
         })
     }
 }
