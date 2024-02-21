@@ -16,7 +16,19 @@ struct MemoListView: View {
     var body: some View {
         WriteBtnView {
             VStack {
-                CustomNavigationBar()
+                if !memoListViewModel.memos.isEmpty {
+                    CustomNavigationBar(
+                        isDisplayLeftBtn: false,
+                        rightBtnAction: {
+                            memoListViewModel.navigationRightBtnTapped()
+                        },
+                        rightBtnType: memoListViewModel.navigationBarRightBtnMode
+                    )
+                } else {
+                    Spacer()
+                        .frame(height: 30)
+                }
+                
                 TitleView()
                 
                 if memoListViewModel.memos.isEmpty {
@@ -45,7 +57,7 @@ private struct TitleView: View {
             }
             Spacer()
         }
-        .font(.system(size: 26, weight: .bold))
+        .font(.system(size: 30, weight: .bold))
         .padding(.horizontal, 30)
         .padding(.top, 30)
     }
@@ -55,10 +67,14 @@ private struct TitleView: View {
 private struct BeginningView: View {
     fileprivate var body: some View {
         VStack(spacing: 8) {
+            Spacer()
+            
             Image("pencil")
             Text("\"퇴근 9시간 전 메모\"")
             Text("\"기획서 작성 후 퇴근하기 메모\"")
             Text("\"밀린 집안일 하기 메모\"")
+            
+            Spacer()
         }
         .font(.system(size: 14, weight: .regular))
         .foregroundColor(.customGray2)

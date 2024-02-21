@@ -13,6 +13,14 @@ final class MemoListViewModel: ObservableObject {
     @Published var isEditMode: Bool
     @Published var isDisplayRemoveAlert: Bool
     
+    var removeMemoCount: Int {
+        return removeMemos.count
+    }
+    
+    var navigationBarRightBtnMode: NavigationBarType {
+        isEditMode ? .complete : .edit
+    }
+    
     init(
         memos: [Memo] = [],
         removeMemos: [Memo] = [],

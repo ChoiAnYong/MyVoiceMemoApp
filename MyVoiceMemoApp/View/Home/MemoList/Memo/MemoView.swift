@@ -16,7 +16,22 @@ struct MemoView: View {
     var body: some View {
         ZStack {
             VStack {
-                CustomNavigationBar()
+                CustomNavigationBar(
+                    leftBtnAction: {
+                        pathModel.paths.removeLast()
+                    },
+                    rightBtnAction: {
+                        if isCreateMode {
+                            memoListViewModel.add(memoViewModel.memo)
+                        } else {
+                            memoListViewModel.updateMemo(memoViewModel.memo)
+                        }
+                        pathModel.paths.removeLast()
+                    },
+                    rightBtnType: isCreateMode ? .create : .complete
+                )
+                
+                
                 TitleView(memoViewModel: memoViewModel, isCreateMode: $isCreateMode)
                 MemoInputView(memoViewModel: memoViewModel)
                 
