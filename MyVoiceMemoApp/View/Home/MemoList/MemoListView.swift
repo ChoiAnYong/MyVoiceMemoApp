@@ -14,33 +14,44 @@ struct MemoListView: View {
     
     
     var body: some View {
-        WriteBtnView {
-            VStack {
-                if !memoListViewModel.memos.isEmpty {
-                    CustomNavigationBar(
-                        isDisplayLeftBtn: false,
-                        rightBtnAction: {
-                            memoListViewModel.navigationRightBtnTapped()
-                        },
-                        rightBtnType: memoListViewModel.navigationBarRightBtnMode
-                    )
-                } else {
-                    Spacer()
-                        .frame(height: 30)
+        WriteBtnView (
+            content: {
+                VStack {
+                    if !memoListViewModel.memos.isEmpty {
+                        CustomNavigationBar(
+                            isDisplayLeftBtn: false,
+                            rightBtnAction: {
+                                memoListViewModel.navigationRightBtnTapped()
+                            },
+                            rightBtnType: memoListViewModel.navigationBarRightBtnMode
+                        )
+                    } else {
+                        Spacer()
+                            .frame(height: 30)
+                    }
+                    
+                    TitleView()
+                    
+                    if memoListViewModel.memos.isEmpty {
+                        BeginningView()
+                    } else {
+                        MemoCellListView()
+                    }
                 }
-                
-                TitleView()
-                
-                if memoListViewModel.memos.isEmpty {
-                    BeginningView()
-                } else {
-                    MemoCellListView()
-                }
+            },
+            action: {
+                pathModel.paths.append(.memoView(isCreatMode: true, memo: nil))
             }
-        } action: {
-            pathModel.paths.append(.memoView(isCreatMode: true, memo: nil))
+        )
+        .alert(
+            "메모 \(memoListViewModel.removeMemoCount)개 삭제하시겠습니까?",
+            isPresented: $memoListViewModel.isDisplayRemoveAlert
+        ) {
+            Button("삭제", role: .destructive) {
+                memoListViewModel.removeBtnTapped()
+            }
+            Button("취소", role: .cancel) {}
         }
-
     }
 }
 

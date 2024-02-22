@@ -120,6 +120,8 @@ private struct DeleteBtnView: View {
                 Spacer()
                 
                 Button(action: {
+                    memoListViewModel.removeMemo(memoViewModel.memo)
+                    pathModel.paths.removeLast()
                 }, label: {
                     Image("trash")
                         .resizable()
