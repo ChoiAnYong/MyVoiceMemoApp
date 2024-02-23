@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AD421BF52B7F321F00A2C000 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD421BF42B7F321F00A2C000 /* Todo.swift */; };
+		AD7448302B888CD100E64D7F /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD74482F2B888CD100E64D7F /* Double+Extensions.swift */; };
 		AD952D4A2B81D6B20059552A /* WriteBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD952D492B81D6B20059552A /* WriteBtn.swift */; };
 		ADA8F1522B7D055A00DE45EB /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ADA8F1512B7D055A00DE45EB /* Storyboard.storyboard */; };
 		ADA8F1552B7DF38000DE45EB /* PathModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA8F1542B7DF38000DE45EB /* PathModel.swift */; };
@@ -43,6 +44,7 @@
 
 /* Begin PBXFileReference section */
 		AD421BF42B7F321F00A2C000 /* Todo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
+		AD74482F2B888CD100E64D7F /* Double+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
 		AD952D492B81D6B20059552A /* WriteBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WriteBtn.swift; sourceTree = "<group>"; };
 		ADA8F1512B7D055A00DE45EB /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		ADA8F1542B7DF38000DE45EB /* PathModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathModel.swift; sourceTree = "<group>"; };
@@ -158,8 +160,8 @@
 		ADA8F16F2B7E3AEC00DE45EB /* Voice */ = {
 			isa = PBXGroup;
 			children = (
-				ADA8F1702B7E3AFF00DE45EB /* VoiceViewModel.swift */,
 				ADA8F1722B7E3B1800DE45EB /* VoiceView.swift */,
+				ADA8F1702B7E3AFF00DE45EB /* VoiceViewModel.swift */,
 			);
 			path = Voice;
 			sourceTree = "<group>";
@@ -204,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				ADA8F1892B7E450E00DE45EB /* Date+Extension.swift */,
+				AD74482F2B888CD100E64D7F /* Double+Extensions.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -414,6 +417,7 @@
 				ADA8F15F2B7DFA5500DE45EB /* Tab.swift in Sources */,
 				ADE8A7A42B7C9FD3002B950B /* OnboardingContent.swift in Sources */,
 				AD421BF52B7F321F00A2C000 /* Todo.swift in Sources */,
+				AD7448302B888CD100E64D7F /* Double+Extensions.swift in Sources */,
 				ADA8F16C2B7E3AB400DE45EB /* MemoViewModel.swift in Sources */,
 				AD952D4A2B81D6B20059552A /* WriteBtn.swift in Sources */,
 				ADA8F1802B7E3D3600DE45EB /* MemoListView.swift in Sources */,

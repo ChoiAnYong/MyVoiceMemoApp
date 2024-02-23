@@ -52,4 +52,5 @@ struct HomeView: View {
     HomeView()
         .environmentObject(PathModel())
         .environmentObject(TodoListViewModel())
+        .environmentObject(MemoListViewModel())
 }
