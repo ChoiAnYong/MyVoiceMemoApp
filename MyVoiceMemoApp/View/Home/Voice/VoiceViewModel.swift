@@ -7,7 +7,7 @@
 
 import AVFoundation
 
-class VoiceViewModel: NSObject, AVAudioPlayerDelegate, ObservableObject {
+final class VoiceViewModel: NSObject, AVAudioPlayerDelegate, ObservableObject {
     @Published var isDisplayRemoveVoiceRecorderAlert: Bool
     @Published var isDisplayAlert: Bool
     @Published var alertMessage: String
@@ -122,6 +122,12 @@ extension VoiceViewModel {
             AVNumberOfChannelsKey: 1,
             AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
         ]
+        
+//        do {
+//            audioRecorder = try AVAudioRecorder(url: fileURL, settings: settings)
+//            audioRecorder?.record()
+//            self.isRecording = true
+//        }
         
         do {
             try AVAudioSession.sharedInstance().setCategory(.record)

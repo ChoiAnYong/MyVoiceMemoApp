@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct TimerView: View {
+    @StateObject var timerViewModel: TimerViewModel
+    
     var body: some View {
         Text("Hello, World!")
     }
