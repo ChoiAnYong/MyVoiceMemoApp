@@ -7,8 +7,14 @@
 
 import UIKit
 
-class AppDelegate: NSObject, UIApplicationDelegate {
+final class AppDelegate: NSObject, UIApplicationDelegate {
+    var notificationDelegate = NotificationDelete()
     
-    
-    
+    func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
+    ) -> Bool {
+        UNUserNotificationCenter.current().delegate = notificationDelegate
+        return true
+    }
 }

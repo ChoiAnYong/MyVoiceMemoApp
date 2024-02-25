@@ -136,7 +136,7 @@ private struct TimerOperationView: View {
         VStack {
             ZStack {
                 VStack {
-                    Text("\(timerViewModel.time.convertedSeconds.formattedTimeString)")
+                    Text("\(timerViewModel.timeRemaining.formattedTimeString)")
                         .font(.system(size: 28))
                     
                     
