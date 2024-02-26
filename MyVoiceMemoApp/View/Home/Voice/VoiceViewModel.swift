@@ -131,7 +131,7 @@ extension VoiceViewModel {
 //        }
         
         do {
-            try audioSession.setCategory(.record)
+            try audioSession.setCategory(.playAndRecord)
             try audioSession.setActive(true)
             self.audioRecorder = try AVAudioRecorder(url: fileURL, settings: settings)
             self.audioRecorder?.record()
@@ -158,8 +158,10 @@ extension VoiceViewModel {
     func startPlaying(recordingURL: URL) {
         let audioSession = AVAudioSession.sharedInstance()
         do {
-            try audioSession.setCategory(.ambient)
+            try audioSession.setCategory(.playAndRecord,
+                                         options: [.allowAirPlay, .allowBluetooth, .defaultToSpeaker])
             try audioSession.setActive(true)
+            print(audioSession.currentRoute)
             audioPlayer = try AVAudioPlayer(contentsOf: recordingURL)
             audioPlayer?.delegate = self
             audioPlayer?.play()

@@ -12,39 +12,61 @@ struct HomeView: View {
     @StateObject private var homeViewModel = HomeViewModel()
     
     var body: some View {
-        TabView(selection: $homeViewModel.selectedTab) {
-            TodoListView()
-                .tabItem {
-                    Image(homeViewModel.selectedTab == .todoList ? "todoIcon_selected" : "todoIcon")
-                }
-                .tag(Tab.todoList)
+        ZStack {
+            TabView(selection: $homeViewModel.selectedTab) {
+                TodoListView()
+                    .tabItem {
+                        Image(homeViewModel.selectedTab == .todoList ? "todoIcon_selected" : "todoIcon")
+                    }
+                    .tag(Tab.todoList)
+                
+                MemoListView()
+                    .tabItem {
+                        Image(homeViewModel.selectedTab == .memo ? "memoIcon_selected" : "memoIcon")
+                    }
+                    .tag(Tab.memo)
+                
+                VoiceView()
+                    .tabItem {
+                        Image(homeViewModel.selectedTab == .voice ? "recordIcon_selected" : "recordIcon")
+                    }
+                    .tag(Tab.voice)
+                
+                TimerView()
+                    .tabItem {
+                        Image(homeViewModel.selectedTab == .timer ? "timerIcon_selected" : "timerIcon")
+                    }
+                    .tag(Tab.timer)
+                
+                SettingView()
+                    .tabItem {
+                        Image(homeViewModel.selectedTab == .setting ? "settingIcon_selected" : "settingIcon")
+                    }
+                    .tag(Tab.setting)
+            }
+            .environmentObject(homeViewModel)
             
-            MemoListView()
-                .tabItem {
-                    Image(homeViewModel.selectedTab == .memo ? "memoIcon_selected" : "memoIcon")
-                }
-                .tag(Tab.memo)
-            
-            VoiceView()
-                .tabItem {
-                    Image(homeViewModel.selectedTab == .voice ? "recordIcon_selected" : "recordIcon")
-                }
-                .tag(Tab.voice)
-            
-            TimerView()
-                .tabItem {
-                    Image(homeViewModel.selectedTab == .timer ? "timerIcon_selected" : "timerIcon")
-                }
-                .tag(Tab.timer)
-            
-            SettingView()
-                .tabItem {
-                    Image(homeViewModel.selectedTab == .setting ? "settingIcon_selected" : "settingIcon")
-                }
-                .tag(Tab.setting)
+            SeperatorLineView()
         }
-        .environmentObject(homeViewModel)
-        
+    }
+}
+
+// MARK: - 구부선
+private struct SeperatorLineView: View {
+    var body: some View {
+        VStack {
+            Spacer()
+            Rectangle()
+                .fill(
+                    LinearGradient(
+                        gradient: Gradient(colors: [Color.white, Color.gray.opacity(0.1)]),
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                )
+                .frame(height: 10)
+                .padding(.bottom, 60)
+        }
     }
 }
 
