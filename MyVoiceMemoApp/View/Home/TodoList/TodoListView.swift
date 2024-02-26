@@ -50,6 +50,11 @@ struct TodoListView: View {
             
             Button("취소", role: .cancel) { }
         }
+        .onChange(
+            of: todoListViewModel.todos,
+            perform: { todos in
+                homeViewModel.setTodosCount(todos.count)
+        })
     }
 }
 

@@ -115,6 +115,7 @@ extension VoiceViewModel {
     }
     
     private func startRecording() {
+        let audioSession = AVAudioSession.sharedInstance()
         let fileURL = getDocumentsDirectory().appendingPathComponent("새로운 녹음 \(recordedFiles.count + 1)")
         let settings = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
@@ -130,8 +131,8 @@ extension VoiceViewModel {
 //        }
         
         do {
-            try AVAudioSession.sharedInstance().setCategory(.record)
-            try AVAudioSession.sharedInstance().setActive(true)
+            try audioSession.setCategory(.record)
+            try audioSession.setActive(true)
             self.audioRecorder = try AVAudioRecorder(url: fileURL, settings: settings)
             self.audioRecorder?.record()
             self.isRecording = true
@@ -155,7 +156,10 @@ extension VoiceViewModel {
 // MARK: - 재생 관련
 extension VoiceViewModel {
     func startPlaying(recordingURL: URL) {
+        let audioSession = AVAudioSession.sharedInstance()
         do {
+            try audioSession.setCategory(.ambient)
+            try audioSession.setActive(true)
             audioPlayer = try AVAudioPlayer(contentsOf: recordingURL)
             audioPlayer?.delegate = self
             audioPlayer?.play()

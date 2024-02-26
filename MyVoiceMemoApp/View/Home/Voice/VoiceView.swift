@@ -39,6 +39,11 @@ struct VoiceView: View {
         ) {
             Button("확인", role: .cancel) { }
         }
+        .onChange(
+            of: voiceViewModel.recordedFiles,
+            perform: { recordedFiles in
+                homeViewModel.setVoiceRecordersCount(recordedFiles.count)
+        })
     }
 }
 
