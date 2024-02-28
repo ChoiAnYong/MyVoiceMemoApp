@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import CoreData
 
 final class MemoListViewModel: ObservableObject {
+    private var memoRepository: MemoRepository
     @Published var memos: [Memo]
     @Published var removeMemos: [Memo]
     @Published var isEditMode: Bool
@@ -22,21 +24,26 @@ final class MemoListViewModel: ObservableObject {
     }
     
     init(
+        memoRepository: MemoRepository = MemoRepository(),
         memos: [Memo] = [],
         removeMemos: [Memo] = [],
         isEditMode: Bool = false,
         isDisplayRemoveAlert: Bool = false
     ) {
+        self.memoRepository = memoRepository
         self.memos = memos
         self.removeMemos = removeMemos
         self.isEditMode = isEditMode
         self.isDisplayRemoveAlert = isDisplayRemoveAlert
+        getMemos()
     }
 }
 
 extension MemoListViewModel {
+        
     func add(_ memo: Memo) {
-        memos.append(memo)
+        memoRepository.add(memo)
+        memos = memoRepository.getMemos()
     }
     
     func updateMemo(_ memo: Memo) {
@@ -45,10 +52,13 @@ extension MemoListViewModel {
         }
     }
     
+    func getMemos() {
+        memos = memoRepository.getMemos()
+    }
+    
     func removeMemo(_ memo: Memo) {
-        if let index = memos.firstIndex(where: { $0.id == memo.id }) {
-            memos.remove(at: index)
-        }
+        memoRepository.remove(memo)
+        memos = memoRepository.getMemos()
     }
     
     func navigationRightBtnTapped() {
@@ -76,8 +86,8 @@ extension MemoListViewModel {
     }
     
     func removeBtnTapped() {
-        memos.removeAll() { memo in
-            removeMemos.contains(memo)
+        memos.removeAll() { MemoInfo in
+            removeMemos.contains(MemoInfo)
         }
         removeMemos.removeAll()
         isEditMode = false

@@ -17,3 +17,12 @@ struct Memo: Hashable {
         String("\(date.formattedDay) - \(date.formattedTime)")
     }
 }
+
+extension Memo {
+    init(memoInfo: MemoInfo) {
+        self.title = memoInfo.title ?? ""
+        self.content = memoInfo.content ?? ""
+        self.date = memoInfo.date ?? Date()
+        
+    }
+}
