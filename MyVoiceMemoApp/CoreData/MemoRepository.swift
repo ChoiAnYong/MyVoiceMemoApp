@@ -34,7 +34,7 @@ class MemoRepository {
     func remove(_ memo: Memo) {
         let context = persistenceController.taskContext()
         let fetchRequest: NSFetchRequest<MemoInfo> = MemoInfo.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "memo.id == %@", argumentArray: [memo.id])
+        fetchRequest.predicate = NSPredicate(format: "id == %@", argumentArray: [memo.id])
         
         do {
             let objects = try context.fetch(fetchRequest)

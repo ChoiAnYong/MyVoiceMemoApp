@@ -124,12 +124,6 @@ extension VoiceViewModel {
             AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
         ]
         
-//        do {
-//            audioRecorder = try AVAudioRecorder(url: fileURL, settings: settings)
-//            audioRecorder?.record()
-//            self.isRecording = true
-//        }
-        
         do {
             try audioSession.setCategory(.playAndRecord)
             try audioSession.setActive(true)

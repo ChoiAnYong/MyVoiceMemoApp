@@ -23,6 +23,6 @@ extension Memo {
         self.title = memoInfo.title ?? ""
         self.content = memoInfo.content ?? ""
         self.date = memoInfo.date ?? Date()
-        
+        self.id = memoInfo.id ?? UUID()
     }
 }
