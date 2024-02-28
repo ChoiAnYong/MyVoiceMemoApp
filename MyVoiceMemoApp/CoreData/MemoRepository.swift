@@ -16,8 +16,8 @@ class MemoRepository {
     
     func add(_ memo: Memo) {
         let context = persistenceController.taskContext()
-        if let savedPlace = fetch(memo, in: context) {
-            savedPlace.date = Date()
+        if let memoInfo = fetch(memo, in: context) {
+            memoInfo.date = Date()
         } else {
             create(memo, in: context)
         }
@@ -47,6 +47,39 @@ class MemoRepository {
         }
     }
     
+    func selectedMemoRemove(_ memos: [Memo]) {
+        let context = persistenceController.taskContext()
+        
+        for memo in memos {
+            if let memoInfo = fetch(memo, in: context) {
+                    context.delete(memoInfo)
+                }
+            }
+            
+            do {
+                try context.save()
+            } catch {
+                print("Error saving context: \(error)")
+            }
+    }
+    
+    func update(_ memo: Memo) {
+        let context = persistenceController.taskContext()
+        if let savedPlace = fetch(memo, in: context) {
+            savedPlace.date = Date()
+            savedPlace.content = memo.content
+            savedPlace.title = memo.title
+        }
+        
+        context.performAndWait {
+            do {
+                try context.save()
+            } catch {
+                print("addPlace error: \(error)")
+            }
+        }
+    }
+    
     fileprivate func fetch(_ memo: Memo, in context: NSManagedObjectContext) -> MemoInfo? {
         let fetchRequest: NSFetchRequest<MemoInfo> = MemoInfo.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "id == %@", argumentArray: [memo.id])
@@ -60,7 +93,7 @@ class MemoRepository {
     
     func fetchAll() -> [MemoInfo] {
         let fetchRequest: NSFetchRequest<MemoInfo> = MemoInfo.fetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
         
         do {
             return try persistenceController.viewContext.fetch(fetchRequest)

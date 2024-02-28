@@ -35,7 +35,7 @@ final class MemoListViewModel: ObservableObject {
         self.removeMemos = removeMemos
         self.isEditMode = isEditMode
         self.isDisplayRemoveAlert = isDisplayRemoveAlert
-        getMemos()
+        self.memos = memoRepository.getMemos()
     }
 }
 
@@ -47,12 +47,7 @@ extension MemoListViewModel {
     }
     
     func updateMemo(_ memo: Memo) {
-        if let index = memos.firstIndex(where: { $0.id == memo.id }) {
-            memos[index] = memo
-        }
-    }
-    
-    func getMemos() {
+        memoRepository.update(memo)
         memos = memoRepository.getMemos()
     }
     
@@ -86,10 +81,9 @@ extension MemoListViewModel {
     }
     
     func removeBtnTapped() {
-        memos.removeAll() { MemoInfo in
-            removeMemos.contains(MemoInfo)
-        }
+        memoRepository.selectedMemoRemove(removeMemos)
         removeMemos.removeAll()
+        memos = memoRepository.getMemos()
         isEditMode = false
     }
 }
