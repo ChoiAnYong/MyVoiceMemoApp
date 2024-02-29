@@ -7,13 +7,15 @@
 
 import CoreData
 
-class MemoRepository {
+final class MemoRepository {
     let persistenceController: PersistenceController
     
     init(persistenceController: PersistenceController = PersistenceController.shared) {
         self.persistenceController = persistenceController
     }
-    
+}
+
+extension MemoRepository {
     func add(_ memo: Memo) {
         let context = persistenceController.taskContext()
         if let memoInfo = fetch(memo, in: context) {
@@ -31,6 +33,39 @@ class MemoRepository {
         }
     }
     
+    func update(_ memo: Memo) {
+        let context = persistenceController.taskContext()
+        if let savedPlace = fetch(memo, in: context) {
+            savedPlace.date = Date()
+            savedPlace.content = memo.content
+            savedPlace.title = memo.title
+        }
+        
+        context.performAndWait {
+            do {
+                try context.save()
+            } catch {
+                print("addPlace error: \(error)")
+            }
+        }
+    }
+    
+    fileprivate func create(_ memo: Memo, in context: NSManagedObjectContext) {
+        let place = MemoInfo(context: context)
+        place.id = memo.id
+        place.title = memo.title
+        place.content = memo.content
+        place.date = memo.date
+    }
+    
+    func getMemos() -> [Memo] {
+        return fetchAll().map {
+            return Memo(memoInfo: $0)
+        }
+    }
+}
+
+extension MemoRepository {
     func remove(_ memo: Memo) {
         let context = persistenceController.taskContext()
         let fetchRequest: NSFetchRequest<MemoInfo> = MemoInfo.fetchRequest()
@@ -62,31 +97,16 @@ class MemoRepository {
                 print("Error saving context: \(error)")
             }
     }
-    
-    func update(_ memo: Memo) {
-        let context = persistenceController.taskContext()
-        if let savedPlace = fetch(memo, in: context) {
-            savedPlace.date = Date()
-            savedPlace.content = memo.content
-            savedPlace.title = memo.title
-        }
-        
-        context.performAndWait {
-            do {
-                try context.save()
-            } catch {
-                print("addPlace error: \(error)")
-            }
-        }
-    }
-    
+}
+
+extension MemoRepository {
     fileprivate func fetch(_ memo: Memo, in context: NSManagedObjectContext) -> MemoInfo? {
         let fetchRequest: NSFetchRequest<MemoInfo> = MemoInfo.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "id == %@", argumentArray: [memo.id])
         do {
             return try context.fetch(fetchRequest).first
         } catch {
-            print("fetch for update MmeoInfo error: \(error)")
+            print("fetch MmeoInfo error: \(error)")
             return nil
         }
     }
@@ -100,20 +120,6 @@ class MemoRepository {
         } catch {
             print("fetch MemoInfo error: \(error)")
             return []
-        }
-    }
-    
-    fileprivate func create(_ memo: Memo, in context: NSManagedObjectContext) {
-        let place = MemoInfo(context: context)
-        place.id = memo.id
-        place.title = memo.title
-        place.content = memo.content
-        place.date = memo.date
-    }
-    
-    func getMemos() -> [Memo] {
-        return fetchAll().map {
-            return Memo(memoInfo: $0)
         }
     }
 }
