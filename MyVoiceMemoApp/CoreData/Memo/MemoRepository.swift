@@ -111,6 +111,7 @@ extension MemoRepository {
         }
     }
     
+    
     func fetchAll() -> [MemoInfo] {
         let fetchRequest: NSFetchRequest<MemoInfo> = MemoInfo.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
