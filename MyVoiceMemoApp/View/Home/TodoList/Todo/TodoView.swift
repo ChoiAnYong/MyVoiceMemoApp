@@ -24,7 +24,8 @@ struct TodoView: View {
                             title: todoViewModel.title,
                             day: todoViewModel.day,
                             time: todoViewModel.time,
-                            seleted: false)
+                            seleted: false,
+                            id: UUID())
                     )
                     pathModel.paths.removeLast()
                 },

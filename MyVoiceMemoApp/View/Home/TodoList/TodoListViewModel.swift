@@ -8,6 +8,7 @@
 import Foundation
 
 final class TodoListViewModel: ObservableObject {
+    private var todoRepository: TodoRepository
     @Published var todos: [Todo]
     @Published var removeTodos: [Todo]
     @Published var isEditMode: Bool
@@ -25,12 +26,14 @@ final class TodoListViewModel: ObservableObject {
         todos: [Todo] = [],
         removeTodos: [Todo] = [],
         isEditMode: Bool = false,
-        isDisplayRemoveTodoAlert: Bool = false
+        isDisplayRemoveTodoAlert: Bool = false,
+        todoRepository: TodoRepository = TodoRepository()
     ) {
         self.todos = todos
         self.removeTodos = removeTodos
         self.isEditMode = isEditMode
         self.isDisplayRemoveTodoAlert = isDisplayRemoveTodoAlert
+        self.todoRepository = todoRepository
     }
 }
 
