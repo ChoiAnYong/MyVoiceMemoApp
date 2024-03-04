@@ -189,22 +189,9 @@ fileprivate struct TodoCellView: View {
         }
     }
 }
-
-// MARK: - 쓰기 버튼 뷰
-//fileprivate struct WriteBtnView: View {
-//    @EnvironmentObject private var pathModel: PathModel
-//    
-//    var body: some View {
-//        Button(action: {
-//            pathModel.paths.append(.todoView)
-//        }, label: {
-//            Image("writeBtn")
-//        })
-//    }
-//}
-
+            
 #Preview {
     TodoListView()
         .environmentObject(PathModel())
-        .environmentObject(TodoListViewModel(todos: [.init(title: "dsf", day: Date(), time: Date(), seleted: false, id: UUID())]))
+        .environmentObject(TodoListViewModel(todos: [.init(title: "dsf", day: Date(), time: Date(), date: Date(),seleted: false, id: UUID())]))
 }

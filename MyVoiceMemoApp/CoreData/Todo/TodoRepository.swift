@@ -24,6 +24,29 @@ extension TodoRepository {
         } else {
             create(todo, in: context)
         }
+        
+        context.performAndWait {
+            do {
+                try context.save()
+            } catch {
+                print("addTodo error: \(error)")
+            }
+        }
+    }
+    
+    func update(_ todo: Todo) {
+        let context = persistenceController.taskContext()
+        if let savedPlace = fetch(todo, in: context) {
+            savedPlace.seleted = todo.seleted
+        }
+        
+        context.performAndWait {
+            do {
+                try context.save()
+            } catch {
+                print("update error: \(error)")
+            }
+        }
     }
     
     fileprivate func create(_ todo: Todo, in context: NSManagedObjectContext) {
@@ -34,12 +57,36 @@ extension TodoRepository {
         place.time = todo.time
         place.seleted = todo.seleted
     }
+    
+    func getTodos() -> [Todo] {
+        return fetchAll().map {
+            return Todo(todoInfo: $0)
+        }
+    }
+}
+
+extension TodoRepository {
+    func selectedTodoRemove(_ todos: [Todo]) {
+        let context = persistenceController.taskContext()
+        
+        for todo in todos {
+            if let todoInfo = fetch(todo, in: context) {
+                context.delete(todoInfo)
+            }
+        }
+        
+        do {
+            try context.save()
+        } catch {
+            print("Error saving context: \(error)")
+        }
+    }
 }
 
 extension TodoRepository {
     fileprivate func fetch(_ todo: Todo, in context: NSManagedObjectContext) -> TodoInfo? {
         let fetchRequest: NSFetchRequest<TodoInfo> = TodoInfo.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "id == %&", argumentArray: [todo.id])
+        fetchRequest.predicate = NSPredicate(format: "id == %@", argumentArray: [todo.id])
         do {
             return try context.fetch(fetchRequest).first
         } catch {
@@ -50,7 +97,7 @@ extension TodoRepository {
     
     func fetchAll() -> [TodoInfo] {
         let fetchRequest: NSFetchRequest<TodoInfo> = TodoInfo.fetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
         
         do {
             return try persistenceController.viewContext.fetch(fetchRequest)

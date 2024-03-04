@@ -34,17 +34,20 @@ final class TodoListViewModel: ObservableObject {
         self.isEditMode = isEditMode
         self.isDisplayRemoveTodoAlert = isDisplayRemoveTodoAlert
         self.todoRepository = todoRepository
+        self.todos = todoRepository.getTodos()
     }
 }
 
 extension TodoListViewModel {
     func addTodo(_ todo: Todo) {
-        todos.append(todo)
+        todoRepository.add(todo)
+        todos = todoRepository.getTodos()
     }
     
     func seletedBoxTapped(_ todo: Todo) {
         if let index = todos.firstIndex(where: { $0 == todo }) {
             todos[index].seleted.toggle()
+            todoRepository.update(todos[index])
         }
     }
     
@@ -73,10 +76,9 @@ extension TodoListViewModel {
     }
     
     func removeBtnTapped() {
-        todos.removeAll() { todo in
-            removeTodos.contains(todo)
-        }
+        todoRepository.selectedTodoRemove(removeTodos)
         removeTodos.removeAll()
+        todos = todoRepository.getTodos()
         isEditMode = false
     }
 }

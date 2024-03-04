@@ -2,7 +2,7 @@
 //  MemoInfo+CoreDataClass.swift
 //  MyVoiceMemoApp
 //
-//  Created by 최안용 on 2/28/24.
+//  Created by 최안용 on 3/4/24.
 //
 //
 

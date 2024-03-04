@@ -11,6 +11,7 @@ struct Todo: Hashable {
     var title: String
     var day: Date
     var time: Date
+    var date: Date
     var seleted: Bool
     var id: UUID
     
@@ -26,5 +27,6 @@ extension Todo {
         self.time = todoInfo.time ?? Date()
         self.seleted = todoInfo.seleted
         self.id = todoInfo.id ?? UUID()
+        self.date = todoInfo.date ?? Date()
     }
 }

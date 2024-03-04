@@ -45,7 +45,7 @@ extension MemoRepository {
             do {
                 try context.save()
             } catch {
-                print("addPlace error: \(error)")
+                print("update error: \(error)")
             }
         }
     }

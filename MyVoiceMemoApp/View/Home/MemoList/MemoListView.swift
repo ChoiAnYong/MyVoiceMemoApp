@@ -12,7 +12,6 @@ struct MemoListView: View {
     @EnvironmentObject private var memoListViewModel: MemoListViewModel
     @EnvironmentObject private var homeViewModel: HomeViewModel
     
-    
     var body: some View {
         WriteBtnView (
             content: {

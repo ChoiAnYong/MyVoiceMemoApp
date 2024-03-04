@@ -19,13 +19,15 @@ struct TodoView: View {
                     pathModel.paths.removeLast()
                 },
                 rightBtnAction: {
+                    todoViewModel.date = todoViewModel.combineDates(todoViewModel.day, todoViewModel.time)
                     todoListViewModel.addTodo(
                         .init(
                             title: todoViewModel.title,
                             day: todoViewModel.day,
-                            time: todoViewModel.time,
+                            time: todoViewModel.time, 
+                            date: todoViewModel.date,
                             seleted: false,
-                            id: UUID())
+                            id: UUID())                            
                     )
                     pathModel.paths.removeLast()
                 },
@@ -98,6 +100,7 @@ private struct SelectTimeView: View {
             .datePickerStyle(WheelDatePickerStyle())
             .labelsHidden()
             .frame(maxWidth: .infinity, alignment: .center)
+            .environment(\.locale, Locale(identifier: "ko_KR"))
             
             Rectangle()
                 .fill(Color.customCoolGray)
