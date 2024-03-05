@@ -34,27 +34,26 @@ extension TodoViewModel {
     }
     
     func combineDates(_ day1: Date, _ day2: Date) -> Date {
-        // 한국 시간대 생성
-        let timeZone = TimeZone(identifier: "Asia/Seoul")!
         let calendar = Calendar.current
         
-        // day1과 day2의 년/월/일/시/분 정보 가져오기
-        let day1Components = calendar.dateComponents(in: timeZone, from: day1)
-        let day2Components = calendar.dateComponents(in: timeZone, from: day2)
+        // day1의 날짜 구성 요소 가져오기
+        let day1Components = calendar.dateComponents(in: .current, from: day1)
         
-        // day1의 년/월/일 정보와 day2의 시/분 정보를 조합하여 day3 생성
+        // day2의 시간 구성 요소 가져오기
+        let day2Components = calendar.dateComponents(in: .current, from: day2)
+        
+        // day1의 날짜와 day2의 시간을 결합하여 새로운 날짜 생성
         var combinedComponents = DateComponents()
         combinedComponents.year = day1Components.year
         combinedComponents.month = day1Components.month
         combinedComponents.day = day1Components.day
         combinedComponents.hour = day2Components.hour
         combinedComponents.minute = day2Components.minute
+        combinedComponents.second = day2Components.second
         
-        // day3 생성
-        if let result = calendar.date(from: combinedComponents) {
-            return result
-        } else {
-            fatalError("Failed to combine dates.")
-        }
+        // 새로운 날짜 생성
+        let combinedDate = calendar.date(from: combinedComponents)
+        
+        return combinedDate!
     }
 }

@@ -116,7 +116,9 @@ extension VoiceViewModel {
     
     private func startRecording() {
         let audioSession = AVAudioSession.sharedInstance()
-        let fileURL = getDocumentsDirectory().appendingPathComponent("새로운 녹음 \(recordedFiles.count + 1)")
+        let fileURL = getDocumentsDirectory()
+            .appendingPathComponent("새로운 녹음 \(recordedFiles.count + 1)")
+        
         let settings = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
             AVSampleRateKey: 12000,

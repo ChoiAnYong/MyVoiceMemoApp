@@ -27,8 +27,10 @@ struct TodoView: View {
                             time: todoViewModel.time, 
                             date: todoViewModel.date,
                             seleted: false,
-                            id: UUID())                            
+                            id: UUID())
                     )
+                    print("\(todoViewModel.day) + \(todoViewModel.time)")
+                    print("\(todoViewModel.date)\n")
                     pathModel.paths.removeLast()
                 },
                 rightBtnType: .create

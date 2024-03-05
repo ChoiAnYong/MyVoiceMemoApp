@@ -55,6 +55,7 @@ extension TodoRepository {
         place.title = todo.title
         place.day = todo.day
         place.time = todo.time
+        place.date = todo.date
         place.seleted = todo.seleted
     }
     
