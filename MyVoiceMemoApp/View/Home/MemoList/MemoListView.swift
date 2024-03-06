@@ -51,11 +51,9 @@ struct MemoListView: View {
             }
             Button("취소", role: .cancel) {}
         }
-        .onChange(
-            of: memoListViewModel.memos,
-            perform: { memos in
-                homeViewModel.setMemosCount(memos.count)
-        })
+        .onChange(of: memoListViewModel.memos.count, initial: true) { oldValue, newValue in
+            homeViewModel.setMemosCount(newValue)
+        }
     }
 }
 

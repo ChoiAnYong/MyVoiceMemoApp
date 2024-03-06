@@ -39,12 +39,10 @@ struct VoiceView: View {
         ) {
             Button("확인", role: .cancel) { }
         }
-        .onChange(
-            of: voiceViewModel.recordedFiles,
-            perform: { recordedFiles in
-                homeViewModel.setVoiceRecordersCount(recordedFiles.count)
-        })
-        .onAppear {
+        .onChange(of: voiceViewModel.recordedFiles.count, initial: true) { oldValue, newValue in
+            homeViewModel.setVoiceRecordersCount(newValue)
+        }
+        .onDisappear {
             self.voiceViewModel.selectedRecordedFile = nil
         }
     }
@@ -139,6 +137,7 @@ private struct RecordedFileCellView: View {
             }, label: {
                 VStack {
                     HStack {
+                        
                         Text(recordedFile.lastPathComponent.replacingOccurrences(of: ".m4a", with: ""))
                             .font(.system(size: 16, weight: .bold))
                             .foregroundColor(.customBlack)

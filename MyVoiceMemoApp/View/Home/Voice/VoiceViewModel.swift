@@ -25,6 +25,7 @@ final class VoiceViewModel: NSObject, AVAudioPlayerDelegate, ObservableObject {
     private var progressTimer: Timer?
     
     var recordedFiles: [URL]
+    var nextAvailableNumber: Int
     
     @Published var selectedRecordedFile: URL?
     
@@ -37,7 +38,8 @@ final class VoiceViewModel: NSObject, AVAudioPlayerDelegate, ObservableObject {
         isPaused: Bool = false,
         playedTime: TimeInterval = 0,
         recordedFiles: [URL] = [],
-        selectedRecordedFile: URL? = nil
+        selectedRecordedFile: URL? = nil,
+        nextAvailableNumber: Int = 1
     ) {
         self.isDisplayRemoveVoiceRecorderAlert = isDisplayRemoveVoiceRecorderAlert
         self.isDisplayAlert = isDisplayAlert
@@ -48,7 +50,8 @@ final class VoiceViewModel: NSObject, AVAudioPlayerDelegate, ObservableObject {
         self.playedTime = playedTime
         self.recordedFiles = recordedFiles
         self.selectedRecordedFile = selectedRecordedFile
-
+        self.nextAvailableNumber = nextAvailableNumber
+        
         super.init()
         self.loadRecordedFiles()
     }
@@ -85,15 +88,21 @@ extension VoiceViewModel {
     }
     
     private func setIsDisplayRemoveVoiceRecorderAlert(_ isDisplay: Bool) {
-        isDisplayRemoveVoiceRecorderAlert = isDisplay
+        DispatchQueue.main.async {
+            self.isDisplayRemoveVoiceRecorderAlert = isDisplay
+        }
     }
     
     private func setErrorAlertMessage(_ message: String) {
-        alertMessage = message
+        DispatchQueue.main.async {
+            self.alertMessage = message
+        }
     }
     
     private func setIsDisplayErrorAlert(_ isDisplay: Bool) {
-        isDisplayAlert = isDisplay
+        DispatchQueue.main.async {
+            self.isDisplayAlert = isDisplay
+        }
     }
     
     private func displayAlert(message: String) {
@@ -119,8 +128,9 @@ extension VoiceViewModel {
     
     private func startRecording() {
         let audioSession = AVAudioSession.sharedInstance()
+        trackDeletedFileNumber()
         let fileURL = getDocumentsDirectory()
-            .appendingPathComponent("새로운 녹음 \(recordedFiles.count + 1).m4a")
+            .appendingPathComponent("새로운 녹음 \(nextAvailableNumber).m4a")
         
         let settings = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
@@ -149,6 +159,22 @@ extension VoiceViewModel {
     private func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]
+    }
+    
+    // 삭제된 파일 숫자 추적
+    func trackDeletedFileNumber() {
+        let existingNumbers = recordedFiles.compactMap { url -> Int? in
+            let filename = url.lastPathComponent
+            if let numberString = filename.components(separatedBy: " ").last?.replacingOccurrences(of: ".m4a", with: ""),
+               let number = Int(numberString) {
+                return number
+            }
+            return nil
+        }
+        
+        if let maxNumber = existingNumbers.max() {
+            nextAvailableNumber = maxNumber + 1
+        }
     }
 }
 
