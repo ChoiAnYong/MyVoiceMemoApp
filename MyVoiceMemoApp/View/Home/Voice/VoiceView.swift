@@ -44,6 +44,9 @@ struct VoiceView: View {
             perform: { recordedFiles in
                 homeViewModel.setVoiceRecordersCount(recordedFiles.count)
         })
+        .onAppear {
+            self.voiceViewModel.selectedRecordedFile = nil
+        }
     }
 }
 
@@ -136,7 +139,7 @@ private struct RecordedFileCellView: View {
             }, label: {
                 VStack {
                     HStack {
-                        Text(recordedFile.lastPathComponent)
+                        Text(recordedFile.lastPathComponent.replacingOccurrences(of: ".m4a", with: ""))
                             .font(.system(size: 16, weight: .bold))
                             .foregroundColor(.customBlack)
                         Spacer()

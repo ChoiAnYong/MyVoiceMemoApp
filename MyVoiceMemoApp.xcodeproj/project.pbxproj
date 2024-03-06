@@ -108,6 +108,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AD3F92962B970E1B00C9F73A /* Voice */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Voice;
+			sourceTree = "<group>";
+		};
 		AD421BF32B7F320900A2C000 /* Todo */ = {
 			isa = PBXGroup;
 			children = (
@@ -148,6 +155,7 @@
 				AD7957832B8F261400C56F4C /* PersistenceController.swift */,
 				AD79578C2B90870A00C56F4C /* Memo */,
 				AD79578D2B90877200C56F4C /* Todo */,
+				AD3F92962B970E1B00C9F73A /* Voice */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -640,6 +648,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MyVoiceMemoApp/Preview Content\"";
+				DEVELOPMENT_TEAM = 63K349422G;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -668,6 +677,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"MyVoiceMemoApp/Preview Content\"";
+				DEVELOPMENT_TEAM = 63K349422G;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

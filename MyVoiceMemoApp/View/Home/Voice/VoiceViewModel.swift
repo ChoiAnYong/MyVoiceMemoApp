@@ -48,6 +48,9 @@ final class VoiceViewModel: NSObject, AVAudioPlayerDelegate, ObservableObject {
         self.playedTime = playedTime
         self.recordedFiles = recordedFiles
         self.selectedRecordedFile = selectedRecordedFile
+
+        super.init()
+        self.loadRecordedFiles()
     }
 }
 
@@ -117,7 +120,7 @@ extension VoiceViewModel {
     private func startRecording() {
         let audioSession = AVAudioSession.sharedInstance()
         let fileURL = getDocumentsDirectory()
-            .appendingPathComponent("새로운 녹음 \(recordedFiles.count + 1)")
+            .appendingPathComponent("새로운 녹음 \(recordedFiles.count + 1).m4a")
         
         let settings = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
@@ -222,4 +225,31 @@ extension VoiceViewModel {
         
         return (creationDate, duration)
     }
+}
+
+extension VoiceViewModel {
+    func loadRecordedFiles() {
+        // 1. 문서 디렉토리 경로를 가져옵니다.
+        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        do {
+            // 2. 문서 디렉토리 내의 모든 파일을 가져옵니다.
+            let files = try FileManager.default.contentsOfDirectory(at: documentsDirectory, includingPropertiesForKeys: nil)
+            recordedFiles = files// m4a 확장자를 가진 파일만을 필터링합니다.
+                .filter { $0.pathExtension == "m4a" }
+                .sorted { (url1, url2) -> Bool in
+                    // 파일 이름에서 숫자를 추출하여 비교
+                    if let number1 = Int(url1.lastPathComponent.split(separator: " ").last ?? ""),
+                       let number2 = Int(url2.lastPathComponent.split(separator: " ").last ?? "") {
+                        return number1 < number2
+                    } else {
+                        // 숫자를 추출할 수 없는 경우, 파일 이름을 기준으로 비교
+                        return url1.lastPathComponent < url2.lastPathComponent
+                    }
+                }
+        } catch {
+            // 4. 파일을 로드하는 과정에서 오류가 발생한 경우 오류 메시지를 출력합니다.
+            print("Failed to load recorded files: \(error)")
+        }
+    }
+
 }

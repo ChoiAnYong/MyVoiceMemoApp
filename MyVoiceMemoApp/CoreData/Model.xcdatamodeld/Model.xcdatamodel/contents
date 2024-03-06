@@ -14,4 +14,5 @@
         <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="title" optional="YES" attributeType="String"/>
     </entity>
+    <entity name="VoiceInfo" representedClassName="VoiceInfo" syncable="YES" codeGenerationType="class"/>
 </model>
