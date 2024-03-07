@@ -6,6 +6,7 @@
 //
 
 import AVFoundation
+import UIKit
 
 final class VoiceViewModel: NSObject, AVAudioPlayerDelegate, ObservableObject {
     @Published var isDisplayRemoveVoiceRecorderAlert: Bool
@@ -113,6 +114,24 @@ extension VoiceViewModel {
 
 // MARK: - 녹음 관련
 extension VoiceViewModel {
+    
+    // 마이크 권한 요청
+    func requestMicrophoneAccess(completion: @escaping (Bool) -> Void) {
+        switch AVAudioApplication.shared.recordPermission {
+        case .undetermined:
+            AVAudioApplication.requestRecordPermission { allowed in
+                completion(allowed)
+            }
+        case .denied:
+            guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
+            UIApplication.shared.open(settingsURL)
+        case .granted:
+            completion(true)
+        @unknown default:
+            displayAlert(message: "마이크 권한 설정 중 오류가 발생했습니다.")
+        }
+    }
+    
     func recordBtnTapped() {
         selectedRecordedFile = nil
         
@@ -127,31 +146,45 @@ extension VoiceViewModel {
     }
     
     private func startRecording() {
-        let audioSession = AVAudioSession.sharedInstance()
-        trackDeletedFileNumber()
-        let fileURL = getDocumentsDirectory()
-            .appendingPathComponent("새로운 녹음 \(nextAvailableNumber).m4a")
-        
-        let settings = [
-            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-            AVSampleRateKey: 12000,
-            AVNumberOfChannelsKey: 1,
-            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
-        ]
-        
-        do {
-            try audioSession.setCategory(.playAndRecord)
-            try audioSession.setActive(true)
-            self.audioRecorder = try AVAudioRecorder(url: fileURL, settings: settings)
-            self.audioRecorder?.record()
-            self.isRecording = true
-        } catch {
-            displayAlert(message: "음성메모 녹음 중 오류가 발생했습니다.")
+        requestMicrophoneAccess { [weak self] allowed in
+            guard let self = self else { return }
+            guard AVAudioApplication.shared.recordPermission == .granted else {
+                    // 마이크 권한이 허용되지 않은 경우에 대한 처리
+                    displayAlert(message: "마이크 권한이 필요합니다.")
+                    return
+                }
+            let audioSession = AVAudioSession.sharedInstance()
+            trackDeletedFileNumber()
+            let fileURL = getDocumentsDirectory()
+                .appendingPathComponent("새로운 녹음 \(nextAvailableNumber).m4a")
+            
+            let settings = [
+                AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+                AVSampleRateKey: 12000,
+                AVNumberOfChannelsKey: 1,
+                AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+            ]
+            
+            do {
+                try audioSession.setCategory(.playAndRecord)
+                try audioSession.setActive(true)
+                self.audioRecorder = try AVAudioRecorder(url: fileURL, settings: settings)
+                self.audioRecorder?.record()
+                self.isRecording = true
+            } catch {
+                displayAlert(message: "음성메모 녹음 중 오류가 발생했습니다.")
+            }
         }
     }
     
     private func stopRecording() {
         audioRecorder?.stop()
+        let audioSession = AVAudioSession.sharedInstance()
+        do {
+            try audioSession.setActive(false)
+        } catch {
+            displayAlert(message: "음성메모 녹음 중지 중 오류가 발생했습니다.")
+        }
         self.recordedFiles.append(self.audioRecorder!.url)
         self.isRecording = false
     }
@@ -277,5 +310,5 @@ extension VoiceViewModel {
             print("Failed to load recorded files: \(error)")
         }
     }
-
 }
+

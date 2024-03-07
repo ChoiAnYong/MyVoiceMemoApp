@@ -146,7 +146,7 @@ private struct SelectDayView: View {
                     .datePickerStyle(GraphicalDatePickerStyle())
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding()
-                    .onChange(of: todoViewModel.day) { _ in
+                    .onChange(of: todoViewModel.day) { oldValue, newValue in
                         todoViewModel.setIsDisplayCalender(false)
                     }
                 }

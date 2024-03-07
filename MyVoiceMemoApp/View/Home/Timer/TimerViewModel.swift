@@ -75,7 +75,7 @@ private extension TimerViewModel {
             } else {
                 self.stopTimer()
                 self.notificationService.sendNotification()
-                
+                self.isDisplaySetTimeView = true
                 if let task = backgroundTaskId {
                     UIApplication.shared.endBackgroundTask(task)
                     backgroundTaskId = .invalid

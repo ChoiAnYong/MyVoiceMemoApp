@@ -61,10 +61,6 @@ private struct TitleView: View {
                 Spacer()
             }
             .padding(.horizontal,30)
-            
-            Rectangle()
-                .fill(Color.customGray0)
-                .frame(height: 1)
         }
     }
 }
@@ -97,6 +93,10 @@ private struct RecordedFileCellListView: View {
     var body: some View {
         ScrollView(.vertical) {
             VStack {
+                Rectangle()
+                    .fill(Color.customGray0)
+                    .frame(height: 1)
+                
                 ForEach(voiceViewModel.recordedFiles, id: \.self) { recordedFile in
                     RecordedFileCellView(voiceViewModel: voiceViewModel, recordedFile: recordedFile)
                 }
