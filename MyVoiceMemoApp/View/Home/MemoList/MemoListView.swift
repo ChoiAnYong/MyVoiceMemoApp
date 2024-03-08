@@ -174,6 +174,7 @@ private struct MemoCellView: View {
                     .frame(height: 1)
             }
         })
+        
     }
 }
 

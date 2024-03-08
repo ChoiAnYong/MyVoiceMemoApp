@@ -285,8 +285,8 @@ private struct RecordingBtnView: View {
                 })
             }
         }
-        .padding(.trailing, 20)
-        .padding(.bottom, 50)
+        .padding(.trailing, 7)
+        .padding(.bottom, 39)
     }
 }
 
